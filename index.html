@@ -1,23 +1,37 @@
 <html>
-<body>
+<head>
+
+
     <script src="jquery-1.11.3.min.js"></script>
+    <style type="text/css">
+
+    .width20{
+        float: left;
+        width: 20%;
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+    
     <h1>送值到google form</h1>
-    NO: <input type="text" id="numberInput"><br><br>
-    Name: <input type="text" id="nameInput"><br><br>
-    Score: <input type="text" id="scoreInput"><br><br><br>
+    編號: <input type="text" id="numberInput"><br><br>
+    姓名: <input type="text" id="nameInput"><br><br>
+    分數: <input type="text" id="scoreInput"><br><br><br>
 
     <input type="button" value="送出" onclick="SendScore()">
 
-    <h1>向google form 取值</h1>
-    NO: <input type="text" id="SnumberInput"><br><br>
+    <h1>向google form 取指定值回來</h1>
+    編號: <input type="text" id="SnumberInput"><br><br>
 
     <input type="button" value="查詢" onclick="Search()">
     <div id="Scontent"></div>
 
     <h1>將google form 值吐到頁面中</h1>
-    <input type="text" id="shownumber">
+    <div id="ShowContent"></div>
 
-    <input type="button" value="show" onclick="show()">
+    <input type="button" value="更新資料" onclick="show()">
     <script type="text/javascript">
         function SendScore(){
             $.get("https://script.google.com/macros/s/AKfycbwInzF_NmajOI7t26RoUn6jrE12mxoGIBPHoy7_-zmfBbiP7Rw/exec", {
@@ -26,7 +40,11 @@
                         "score": document.getElementById("scoreInput").value
                     },
                     function (data) {
-                        alert('傳送出去囉～')
+                        
+                        $('#numberInput').val('');
+                        $('#nameInput').val('');
+                        $('#scoreInput').val('');
+                        alert('送值出去囉～')
                     });
         };
          function Search(){
@@ -39,18 +57,38 @@
 
                     });
         }
+
+ $.ajax({
+        url: "https://script.google.com/macros/s/AKfycbza3aYd7dckFOzvutFlr3sr7Ztyv5LGY97X3VcIvrkgpHWZ_hs/exec",
+        success: function(data){
+           var e = data;
+           var result = e.replace(/,/g, "<br>");
+            // console.log(s1)
+            $('#ShowContent').html(result);
+
+        },
+        error: function(){
+                //your code here
+        }
+});
+
 function show(){
-     $.get("https://script.google.com/macros/s/AKfycbyzd1BimtGuLLGa-GoR1u4f1QRr4sLYomvyWKNL662m0-oHyYSH/exec", {
-                        "number": document.getElementById("shownumber").value
-                    },
-                    function (data) {
-                        // $('#shownumber').html
-                        console.log(data)
+    $.ajax({
+        url: "https://script.google.com/macros/s/AKfycbza3aYd7dckFOzvutFlr3sr7Ztyv5LGY97X3VcIvrkgpHWZ_hs/exec",
+        success: function(data){
+           var e = data;
+           var result = e.replace(/,/g, "<br>");
+            // console.log(s1)
+            $('#ShowContent').html(result);
 
-                    });
-
+        },
+        error: function(){
+                //your code here
+        }
+});
 }
 
     </script>
 </body>
 </html>
+
