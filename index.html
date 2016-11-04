@@ -31,7 +31,7 @@
     <h1>將google form 值吐到頁面中</h1>
     <div id="ShowContent"></div>
 
-    <input type="button" value="更新資料" onclick="show()">
+    <!-- <input type="button" value="更新資料" onclick="show()"> -->
     <script type="text/javascript">
         function SendScore(){
             $.get("https://script.google.com/macros/s/AKfycbwInzF_NmajOI7t26RoUn6jrE12mxoGIBPHoy7_-zmfBbiP7Rw/exec", {
@@ -45,6 +45,7 @@
                         $('#nameInput').val('');
                         $('#scoreInput').val('');
                         alert('送值出去囉～')
+                        show();
                     });
         };
          function Search(){
