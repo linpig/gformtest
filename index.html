@@ -1,0 +1,23 @@
+<html>
+<body>
+    <script src="jquery-1.11.3.min.js"></script>
+
+    NO: <input type="text" id="numberInput"><br><br>
+    Name: <input type="text" id="nameInput"><br><br>
+    Score: <input type="text" id="scoreInput"><br><br><br>
+
+    <input type="button" value="送出" onclick="SendScore()">
+    <script type="text/javascript">
+        function SendScore(){
+            $.get("https://script.google.com/macros/s/AKfycbwInzF_NmajOI7t26RoUn6jrE12mxoGIBPHoy7_-zmfBbiP7Rw/exec", {
+                        "number": document.getElementById("numberInput").value,
+                        "name": document.getElementById("nameInput").value,
+                        "score": document.getElementById("scoreInput").value
+                    },
+                    function (data) {
+                        alert('我送值出去囉～～～')
+                    });
+        }
+    </script>
+</body>
+</html>
