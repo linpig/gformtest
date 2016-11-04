@@ -1,12 +1,23 @@
 <html>
 <body>
     <script src="jquery-1.11.3.min.js"></script>
-
+    <h1>送值到google form</h1>
     NO: <input type="text" id="numberInput"><br><br>
     Name: <input type="text" id="nameInput"><br><br>
     Score: <input type="text" id="scoreInput"><br><br><br>
 
     <input type="button" value="送出" onclick="SendScore()">
+
+    <h1>向google form 取值</h1>
+    NO: <input type="text" id="SnumberInput"><br><br>
+
+    <input type="button" value="查詢" onclick="Search()">
+    <div id="Scontent"></div>
+
+    <h1>將google form 值吐到頁面中</h1>
+    <input type="text" id="shownumber">
+
+    <input type="button" value="show" onclick="show()">
     <script type="text/javascript">
         function SendScore(){
             $.get("https://script.google.com/macros/s/AKfycbwInzF_NmajOI7t26RoUn6jrE12mxoGIBPHoy7_-zmfBbiP7Rw/exec", {
@@ -15,9 +26,31 @@
                         "score": document.getElementById("scoreInput").value
                     },
                     function (data) {
-                        alert('我送值出去囉～～～')
+                        alert('傳送出去囉～')
+                    });
+        };
+         function Search(){
+            $.get("https://script.google.com/macros/s/AKfycbwmMJfkI8iZe_FYEIBPpBy2VV8Ogyiwlyo1ZPS5egEDW_xMZUI/exec", {
+                        "number": document.getElementById("SnumberInput").value
+                    },
+                    function (data) {
+                        $('#Scontent').html(data)
+                        console.log(data)
+
                     });
         }
+function show(){
+     $.get("https://script.google.com/macros/s/AKfycbyzd1BimtGuLLGa-GoR1u4f1QRr4sLYomvyWKNL662m0-oHyYSH/exec", {
+                        "number": document.getElementById("shownumber").value
+                    },
+                    function (data) {
+                        // $('#shownumber').html
+                        console.log(data)
+
+                    });
+
+}
+
     </script>
 </body>
 </html>
